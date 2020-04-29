@@ -1,0 +1,123 @@
+title = "Accueil"
+url = "/"
+layout = "default"
+description = "Programme"
+is_hidden = 0
+==
+use DigArt\Spectacles\Models\Spectacle;
+
+function onInit() {
+    $this['spectacles'] = Spectacle::get();
+}
+==
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>Programme</h1>
+			<p>Bienvenue au <strong>Café Théâtre de la Tour de Rive</strong> à La Neuveville. Voici le programme de la saison actuelle.</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <!--<div class="page-header">
+        <h2>Prochains <small>spectacles</small></h2>
+    </div>
+    <p>
+        This page demonstrates the basic CMS features.
+        Usually each page built with October is a combination of a layout, page, partials and content blocks,
+        although in simple cases you can just use a page without anything else.
+    </p>
+   	-->
+
+
+    
+    	{% for spectacle in spectacles %}
+    	<div style="margin-top: 20px; padding: 20px; background-color: #ffcebc; color: black;">
+
+        	<h2 style="color: black;">{{ spectacle.titre_principal|upper }}</h2>
+        	<h3 style="color: black;">{{ spectacle.titre_secondaire }}</h3>
+
+        	
+
+        	<div class="accroche" style="text-align: justify; text-justify: inter-word;">
+        		<div >
+        			{% if spectacle.affiche %}
+        				<img class="img-responsive" style="float:right; width: 300px;padding-left: 20px;" src="{{ spectacle.affiche.path }}" class="rounded float-left" alt="{{ spectacle.titre_principal }}">	
+        			{% endif %}
+        			{{ spectacle.accroche|raw }}
+        		</div>
+        	</div>
+
+        	<div>
+        		<span><button type="button" class="btn btn-info btn-xs">{{ spectacle.saison.designation }}</button></span>
+        		&nbsp; 	/ 	&nbsp;
+        		<span><strong>Catégories :</strong> 
+        			{% for categorie in spectacle.categories %}
+        				{{ categorie.designation|lower }}
+        				{% if not loop.last %}, {% endif %} 
+        			{% endfor %}
+        		</span>
+        		&nbsp; 	/ 	&nbsp;
+        		<span><strong>Genres :</strong> 
+        			{% for genre in spectacle.genres %}
+        				{{ genre.designation|lower }}
+        				{% if not loop.last %}, {% endif %} 
+        			{% endfor %}
+        		</span>
+        	</div>
+
+        	{% if spectacle.representations|length > 0 %}
+        	<div style="margin-top: 10px; margin-bottom: 20px; padding: 15px; background-color: #ffb195;">
+        		<h4 style="padding-top: 0; color: black;">Dates de spectacles :</h4>
+
+			        <table class="table table-dark" style="padding:5px; margin: 0px;">
+			          <thead>
+			            <tr>
+			              <th scope="col">Jour</th>
+			              <th scope="col">Date</th>
+			              <th scope="col">Heure</th>
+			              <th scope="col">Lieu / salle</th>
+			              <th scope="col">Remarques</th>
+			              <th scope="col">Statut</th>
+			              <th scope="col">Réservations</th>
+			            </tr>
+			          </thead>
+			          <tbody>
+
+			            {% for representation in spectacle.representations %}
+			            <tr>
+			              <th scope="row"><span class="text-uppercase">{{ representation.debut|date('D') }}</span></th>
+			              <th scope="row"><span class="text-uppercase">{{ representation.debut|date('d.m.y') }}</span></th>
+			              <th scope="row"><span class="text-uppercase">{{ representation.debut|date('H:i') }}</span></th>
+			              <td>{{ representation.lieu.designation }}</td>
+			              <td>{{ representation.designation }}</td>
+			              <td>
+			              	{% if representation.statut.is_frontend == true %}
+			              		{{ representation.statut.designation }}
+			              	{% endif %}
+			              </td>
+			              <td>
+			              	{% if representation.statut.is_reservable  == true %}
+			              		<button type="button" class="btn btn-primary btn-xs">Réserver</button>
+			              	{% endif %}
+			              </td>
+			            </tr>
+                  		{% endfor %}
+			          </tbody>
+			        </table>
+
+
+        	</div>
+        	{% endif %}
+
+        	<div class="text-center">
+    			<p><a href="/spectacle/{{ spectacle.id }}" class="btn btn-lg btn-default">Lire le détail</a></p>
+			</div>
+    	
+    </div>
+    {% endfor %}
+    <br />    
+
+</div>
+

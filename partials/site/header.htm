@@ -1,0 +1,24 @@
+<!-- Nav -->
+<nav id="layout-nav" class="navbar navbar-inverse navbar-fixed-top navbar-autohide" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ 'accueil'|page }}">La Tour de Rive</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-main-collapse">
+            <ul class="nav navbar-nav">
+                <li class="separator hidden-xs"></li>
+                <li class="{% if this.page.id == 'accueil' %}active{% endif %}"><a href="{{ 'accueil'|page }}">Saison actuelle</a></li>
+                <li class="{% if this.page.id == 'archives' %}active{% endif %}"><a href="{{ 'archives'|page }}">Archives</a></li>
+                <li class="{% if this.page.id == 'pratique' %}active{% endif %}"><a href="{{ 'pratique'|page }}">Pratique</a></li>
+                <li class="{% if this.page.id == 'lieu' %}active{% endif %}"><a href="{{ 'lieu'|page }}">Le lieu</a></li>
+                <li class="{% if this.page.id == 'contact' %}active{% endif %}"><a href="{{ 'contact'|page }}">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

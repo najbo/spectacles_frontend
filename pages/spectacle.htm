@@ -1,0 +1,44 @@
+title = "Détail"
+url = "/spectacle/:id"
+layout = "default"
+description = "Détail d'un spectacle"
+is_hidden = 0
+==
+use DigArt\Spectacles\Models\Spectacle;
+
+function onInit() {
+    
+    $this['spectacle'] = Spectacle::findOrFail($this->param('id'));
+}
+==
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>{{spectacle.titre_principal}}</h1>
+			<h2>{{ spectacle.titre_secondaire }}</h2>
+    </div>
+</div>
+
+<div class="container">
+
+    <!--<div class="page-header">
+        <h2>Prochains <small>spectacles</small></h2>
+    </div>
+    <p>
+        This page demonstrates the basic CMS features.
+        Usually each page built with October is a combination of a layout, page, partials and content blocks,
+        although in simple cases you can just use a page without anything else.
+    </p>
+   	-->
+    <div style="text-align: justify; text-justify: inter-word;">
+        {{ spectacle.developpement|raw}}
+    </div>
+
+
+    <br />    
+
+    <div class="text-center">
+        <a class="btn btn-lg btn-default" href="javascript:history.back()">Retour</a>
+    </div>
+
+</div>
