@@ -85,24 +85,32 @@ function onInit() {
 			          </thead>
 			          <tbody>
 
+                        {% set previous = false %}
 			            {% for representation in spectacle.representations %}
-			            <tr>
-			              <th scope="row"><span class="text-uppercase">{{ representation.debut|date('D') }}</span></th>
-			              <th scope="row"><span class="text-uppercase">{{ representation.debut|date('d.m.y') }}</span></th>
-			              <th scope="row"><span class="text-uppercase">{{ representation.debut|date('H:i') }}</span></th>
-			              <td>{{ representation.lieu.designation }}</td>
-			              <td>{{ representation.designation }}</td>
-			              <td>
-			              	{% if representation.statut.is_frontend == true %}
-			              		{{ representation.statut.designation }}
-			              	{% endif %}
-			              </td>
-			              <td>
-			              	{% if representation.statut.is_reservable  == true %}
-			              		<button type="button" class="btn btn-primary btn-xs">Réserver</button>
-			              	{% endif %}
-			              </td>
-			            </tr>
+    			            <tr>
+    			              <th scope="row"><span class="text-uppercase">
+                                    {% if previous != representation.debut|date('d.m.y') %}
+                                        {{ representation.debut|date('D') }}</span></th>
+                                    {% endif %}
+    			              <th scope="row"><span class="text-uppercase">
+                                    {% if previous != representation.debut|date('d.m.y') %}
+                                        {{ representation.debut|date('d.m.y') }}</span></th>
+                                    {% endif %}
+    			              <th scope="row"><span class="text-uppercase">{{ representation.debut|date('H:i') }}</span></th>
+    			              <td>{{ representation.lieu.designation }}</td>
+    			              <td>{{ representation.designation }}</td>
+    			              <td>  
+    			              	{% if representation.statut.is_frontend == true %}
+    			              		{{ representation.statut.designation }}
+    			              	{% endif %}
+    			              </td>
+    			              <td>
+    			              	{% if representation.statut.is_reservable  == true %}
+    			              		<button type="button" class="btn btn-primary btn-xs">Réserver</button>
+    			              	{% endif %}
+    			              </td>
+    			            </tr>
+                            {% set previous = representation.debut|date('d.m.y') %}
                   		{% endfor %}
 			          </tbody>
 			        </table>
