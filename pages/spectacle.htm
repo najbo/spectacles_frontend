@@ -9,7 +9,16 @@ use DigArt\Spectacles\Models\Spectacle;
 function onInit() {
     
     $this['spectacle'] = Spectacle::findOrFail($this->param('id'));
+
+   # $this['test'] =Spectacle::join('representations', 'spectacle.role_id', '=', 'roles.id')->orderBy('roles.label', 'desc')->select('users.*')->paginate(10);
+
+
+
+#$order = 'desc';
+# $users = User::join('roles', 'users.role_id', '=', 'roles.id')->orderBy('roles.label', $order)->select('users.*')->paginate(10);
+
 }
+
 ==
 
 <div class="jumbotron">
